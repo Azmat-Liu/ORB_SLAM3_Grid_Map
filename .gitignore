@@ -108,3 +108,7 @@ Examples_old/Stereo/stereo_realsense_D435i_old
 Examples_old/Stereo/stereo_realsense_t265_old
 Examples_old/Stereo-Inertial/stereo_inertial_realsense_D435i_old
 Examples_old/Stereo-Inertial/stereo_inertial_realsense_t265_old
+
+Examples/ROS2/build
+Examples/ROS2/log
+Examples/ROS2/install
