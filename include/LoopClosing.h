@@ -82,6 +82,8 @@ public:
 
     bool isFinished();
 
+    bool loop_detected;//grid mapping
+
     Viewer* mpViewer;
 
 #ifdef REGISTER_TIMES
