@@ -69,6 +69,7 @@ public:
 
     // Destructor
     // ~Frame();
+    bool is_keyframe;//grid mapping
 
     // Extract ORB on the image. 0 for left image and 1 for right image.
     void ExtractORB(int flag, const cv::Mat &im, const int x0, const int x1);

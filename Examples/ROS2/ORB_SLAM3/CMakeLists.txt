@@ -27,6 +27,11 @@ find_package(Pangolin REQUIRED)
 find_package(ORB_SLAM3 REQUIRED)
 find_package(OpenCV 4.2 QUIET)
 
+if(NOT DEFINED CMAKE_SUPPRESS_DEVELOPER_WARNINGS)
+  set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS 1 CACHE INTERNAL "No dev warnings")
+endif()
+find_package(PCL 1.10 REQUIRED)
+
 include_directories(
  /usr/include
 )
@@ -70,12 +75,50 @@ add_executable(stereo-inertial
 )
 ament_target_dependencies(stereo-inertial rclcpp sensor_msgs cv_bridge ORB_SLAM3 Pangolin OpenCV)
 
+#Node for Grid Mapping
+add_executable(Monopub
+  src/grid-map/ros2_mono_pub.cpp
+)
+ament_target_dependencies(Monopub rclcpp sensor_msgs geometry_msgs nav_msgs cv_bridge ORB_SLAM3 Pangolin)
+target_link_libraries(Monopub
+  ${PCL_LIBRARIES}
+)
+
+add_executable(Mono-inertial_pub
+  src/grid-map/ros2_mono_inertial_pub.cpp
+)
+ament_target_dependencies(Mono-inertial_pub rclcpp sensor_msgs geometry_msgs nav_msgs cv_bridge ORB_SLAM3 Pangolin)
+target_link_libraries(Mono-inertial_pub 
+  ${PCL_LIBRARIES}
+)
+
+add_executable(Mono-example_pub
+  src/grid-map/ros2_mono_data-example_pub.cpp
+)
+ament_target_dependencies(Mono-example_pub rclcpp sensor_msgs geometry_msgs nav_msgs cv_bridge ORB_SLAM3 Pangolin)
+target_link_libraries(Mono-example_pub
+  ${PCL_LIBRARIES}
+)
+
+add_executable(Mapsub
+  src/grid-map/grid_map_sub.cpp
+)
+ament_target_dependencies(Mapsub rclcpp sensor_msgs geometry_msgs nav_msgs cv_bridge ORB_SLAM3 Pangolin)
+target_link_libraries(Mapsub
+  ${PCL_LIBRARIES}
+)
+
+
 install(TARGETS 
   mono 
   mono-inertial
   rgbd 
   stereo 
   stereo-inertial
+  Monopub
+  Mono-inertial_pub
+  Mono-example_pub
+  Mapsub
   DESTINATION lib/${PROJECT_NAME})
 
 # Install launch files.

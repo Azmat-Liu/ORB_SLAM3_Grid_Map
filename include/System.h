@@ -186,6 +186,14 @@ public:
 
     float GetImageScale();
 
+    //for grid mapping
+    Atlas* getMap() {
+        return mpAtlas;
+    }
+    Tracking* getTracker(){ return mpTracker; }
+    LocalMapping* getLocalMapping(){ return mpLocalMapper; }
+    LoopClosing* getLoopClosing(){ return mpLoopCloser; }
+
 #ifdef REGISTER_TIMES
     void InsertRectTime(double& time);
     void InsertResizeTime(double& time);

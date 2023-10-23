@@ -97,6 +97,8 @@ public:
     void CreateMapInAtlas();
     //std::mutex mMutexTracks;
 
+    bool loop_detected;//grid mapping
+
     //--
     void NewDataset();
     int GetNumberDataset();

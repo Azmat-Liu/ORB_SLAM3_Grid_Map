@@ -43,7 +43,7 @@ LoopClosing::LoopClosing(Atlas *pAtlas, KeyFrameDatabase *pDB, ORBVocabulary *pV
     mbResetRequested(false), mbResetActiveMapRequested(false), mbFinishRequested(false), mbFinished(true), mpAtlas(pAtlas),
     mpKeyFrameDB(pDB), mpORBVocabulary(pVoc), mpMatchedKF(NULL), mLastLoopKFid(0), mbRunningGBA(false), mbFinishedGBA(true),
     mbStopGBA(false), mpThreadGBA(NULL), mbFixScale(bFixScale), mnFullBAIdx(0), mnLoopNumCoincidences(0), mnMergeNumCoincidences(0),
-    mbLoopDetected(false), mbMergeDetected(false), mnLoopNumNotFound(0), mnMergeNumNotFound(0), mbActiveLC(bActiveLC)
+    mbLoopDetected(false), mbMergeDetected(false), mnLoopNumNotFound(0), mnMergeNumNotFound(0), mbActiveLC(bActiveLC), loop_detected(false)
 {
     // 连续性阈值
     mnCovisibilityConsistencyTh = 3;
@@ -1273,6 +1273,7 @@ int LoopClosing::FindMatchesByProjection(
 void LoopClosing::CorrectLoop()
 {
     //cout << "Loop detected!" << endl;
+    loop_detected = mpTracker->loop_detected = true;//grid mapping
 
     // Send a stop signal to Local Mapping
     // Avoid new keyframes are inserted while correcting the loop
